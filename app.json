@@ -35,5 +35,14 @@
     "experiments": {
       "typedRoutes": true
     }
+    ,
+    "extra": {
+      "EXPO_PUBLIC_APPWRITE_PROJECT_ID": "6a1ccfee003c01f895cf",
+      "EXPO_PUBLIC_APPWRITE_PROJECT_NAME": "Verze",
+      "EXPO_PUBLIC_APPWRITE_ENDPOINT": "https://nyc.cloud.appwrite.io/v1",
+      "EXPO_PUBLIC_APPWRITE_DATABASE_ID": "6a1dc5d60039b7b270d6",
+      "EXPO_PUBLIC_APPWRITE_COLLECTION_ID": "users",
+      "EXPO_PUBLIC_APPWRITE_BUCKET_ID": "6a1dc682002e38da2322"
+    }
   }
 }
