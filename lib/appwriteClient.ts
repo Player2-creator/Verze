@@ -1,5 +1,5 @@
 import Constants from 'expo-constants'
-import { Client, Databases, ID, Storage, Account } from 'react-native-appwrite'
+import { Client, Databases, ID, Storage, Account, Query } from 'react-native-appwrite'
 
 const extra = (Constants.manifest && (Constants.manifest as any).extra) || (Constants.expoConfig && (Constants.expoConfig as any).extra) || {}
 
@@ -8,6 +8,7 @@ const project = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID || extra.EXPO_PUBLIC
 const projectName = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_NAME || extra.EXPO_PUBLIC_APPWRITE_PROJECT_NAME || 'Verze'
 const databaseId = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID || extra.EXPO_PUBLIC_APPWRITE_DATABASE_ID || '6a1dc5d60039b7b270d6'
 const collectionId = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID || extra.EXPO_PUBLIC_APPWRITE_COLLECTION_ID || 'users'
+const userCollectionId = process.env.EXPO_PUBLIC_APPWRITE_USER_COLLECTION_ID || extra.EXPO_PUBLIC_APPWRITE_USER_COLLECTION_ID || collectionId
 const bucketId = process.env.EXPO_PUBLIC_APPWRITE_BUCKET_ID || extra.EXPO_PUBLIC_APPWRITE_BUCKET_ID || '6a1dc682002e38da2322'
 
 const client = new Client()
@@ -28,6 +29,25 @@ export async function createAnonymousSession() {
 
 export async function updateAccountName(name: string) {
   return account.updateName(name)
+}
+
+export async function isNameTaken(name: string) {
+  if (!databaseId || !userCollectionId) {
+    throw new Error('Missing EXPO_PUBLIC_APPWRITE_DATABASE_ID or EXPO_PUBLIC_APPWRITE_USER_COLLECTION_ID env var')
+  }
+
+  const nameQuery = [Query.equal('name', name)]
+  const result = await databases.listDocuments(String(databaseId), String(userCollectionId), nameQuery)
+  return (result.documents?.length || 0) > 0
+}
+
+export async function createUserDocument(name: string) {
+  if (!databaseId || !userCollectionId) {
+    throw new Error('Missing EXPO_PUBLIC_APPWRITE_DATABASE_ID or EXPO_PUBLIC_APPWRITE_USER_COLLECTION_ID env var')
+  }
+
+  const data = { name }
+  return databases.createDocument(String(databaseId), String(userCollectionId), ID.unique(), data)
 }
 
 export async function logout() {
