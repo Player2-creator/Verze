@@ -4,7 +4,7 @@
     "slug": "Verze",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/icon1.png",
     "scheme": "verze",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -22,7 +22,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.kingvijay.Verze"
     },
     "web": {
       "bundler": "metro",
@@ -34,15 +35,18 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
-    ,
+    },
     "extra": {
       "EXPO_PUBLIC_APPWRITE_PROJECT_ID": "6a1ccfee003c01f895cf",
       "EXPO_PUBLIC_APPWRITE_PROJECT_NAME": "Verze",
       "EXPO_PUBLIC_APPWRITE_ENDPOINT": "https://nyc.cloud.appwrite.io/v1",
       "EXPO_PUBLIC_APPWRITE_DATABASE_ID": "6a1dc5d60039b7b270d6",
       "EXPO_PUBLIC_APPWRITE_COLLECTION_ID": "users",
-      "EXPO_PUBLIC_APPWRITE_BUCKET_ID": "6a1dc682002e38da2322"
+      "EXPO_PUBLIC_APPWRITE_BUCKET_ID": "6a1dc682002e38da2322",
+      "router": {},
+      "eas": {
+        "projectId": "85f48206-e54f-43a0-b890-34beae4aa79f"
+      }
     }
   }
 }
