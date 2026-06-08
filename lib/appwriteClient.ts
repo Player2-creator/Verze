@@ -7,8 +7,9 @@ const endpoint = process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT || extra.EXPO_PUBLIC_
 const project = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID || extra.EXPO_PUBLIC_APPWRITE_PROJECT_ID || '6a1ccfee003c01f895cf'
 const projectName = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_NAME || extra.EXPO_PUBLIC_APPWRITE_PROJECT_NAME || 'Verze'
 const databaseId = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID || extra.EXPO_PUBLIC_APPWRITE_DATABASE_ID || '6a1dc5d60039b7b270d6'
+const authCollectionId = process.env.EXPO_PUBLIC_APPWRITE_AUTH_COLLECTION_ID || extra.EXPO_PUBLIC_APPWRITE_AUTH_COLLECTION_ID || 'auth'
 const collectionId = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID || extra.EXPO_PUBLIC_APPWRITE_COLLECTION_ID || 'users'
-const userCollectionId = process.env.EXPO_PUBLIC_APPWRITE_USER_COLLECTION_ID || extra.EXPO_PUBLIC_APPWRITE_USER_COLLECTION_ID || collectionId
+const userCollectionId = process.env.EXPO_PUBLIC_APPWRITE_USER_COLLECTION_ID || extra.EXPO_PUBLIC_APPWRITE_USER_COLLECTION_ID || authCollectionId
 const bucketId = process.env.EXPO_PUBLIC_APPWRITE_BUCKET_ID || extra.EXPO_PUBLIC_APPWRITE_BUCKET_ID || '6a1dc682002e38da2322'
 
 const client = new Client()
