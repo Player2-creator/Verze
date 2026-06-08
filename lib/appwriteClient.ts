@@ -7,9 +7,7 @@ const endpoint = process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT || extra.EXPO_PUBLIC_
 const project = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID || extra.EXPO_PUBLIC_APPWRITE_PROJECT_ID || '6a1ccfee003c01f895cf'
 const projectName = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_NAME || extra.EXPO_PUBLIC_APPWRITE_PROJECT_NAME || 'Verze'
 const databaseId = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID || extra.EXPO_PUBLIC_APPWRITE_DATABASE_ID || '6a1dc5d60039b7b270d6'
-const authCollectionId = process.env.EXPO_PUBLIC_APPWRITE_AUTH_COLLECTION_ID || extra.EXPO_PUBLIC_APPWRITE_AUTH_COLLECTION_ID || 'auth'
-const collectionId = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID || extra.EXPO_PUBLIC_APPWRITE_COLLECTION_ID || 'users'
-const userCollectionId = process.env.EXPO_PUBLIC_APPWRITE_USER_COLLECTION_ID || extra.EXPO_PUBLIC_APPWRITE_USER_COLLECTION_ID || authCollectionId
+const collectionId = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID || extra.EXPO_PUBLIC_APPWRITE_COLLECTION_ID || 'posts'
 const bucketId = process.env.EXPO_PUBLIC_APPWRITE_BUCKET_ID || extra.EXPO_PUBLIC_APPWRITE_BUCKET_ID || '6a1dc682002e38da2322'
 
 const client = new Client()
@@ -32,23 +30,13 @@ export async function updateAccountName(name: string) {
   return account.updateName(name)
 }
 
-export async function isNameTaken(name: string) {
-  if (!databaseId || !userCollectionId) {
-    throw new Error('Missing EXPO_PUBLIC_APPWRITE_DATABASE_ID or EXPO_PUBLIC_APPWRITE_USER_COLLECTION_ID env var')
+export async function userExists() {
+  try {
+    await account.get()
+    return true
+  } catch {
+    return false
   }
-
-  const nameQuery = [Query.equal('name', name)]
-  const result = await databases.listDocuments(String(databaseId), String(userCollectionId), nameQuery)
-  return (result.documents?.length || 0) > 0
-}
-
-export async function createUserDocument(name: string) {
-  if (!databaseId || !userCollectionId) {
-    throw new Error('Missing EXPO_PUBLIC_APPWRITE_DATABASE_ID or EXPO_PUBLIC_APPWRITE_USER_COLLECTION_ID env var')
-  }
-
-  const data = { name }
-  return databases.createDocument(String(databaseId), String(userCollectionId), ID.unique(), data)
 }
 
 export async function logout() {

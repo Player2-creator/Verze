@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Button, TextInput, Text } from 'react-native-paper'
 import { useRouter } from 'expo-router'
-import { createAnonymousSession, getAccount, updateAccountName, isNameTaken, createUserDocument, logout } from '../lib/appwriteClient'
+import { createAnonymousSession, getAccount, updateAccountName, logout } from '../lib/appwriteClient'
 
 const AUTH_STORAGE_KEY = 'authUser'
 
@@ -67,12 +67,6 @@ const Auth = () => {
     setMessage('')
 
     try {
-      const exists = await isNameTaken(cleanedName)
-      if (exists) {
-        setMessage('That name is already taken. Please pick another one.')
-        return
-      }
-
       // Delete any existing session before creating a new one
       try {
         await logout()
@@ -82,15 +76,10 @@ const Auth = () => {
 
       await createAnonymousSession()
       await updateAccountName(cleanedName)
-      await createUserDocument(cleanedName)
       await AsyncStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ name: cleanedName }))
       router.replace('/')
     } catch (error: any) {
-      if (error?.message?.includes('duplicate') || error?.code === 409) {
-        setMessage('That name is already taken. Please pick another one.')
-      } else {
-        setMessage(error?.message || 'Unable to log in anonymously.')
-      }
+      setMessage(error?.message || 'Unable to log in anonymously.')
     } finally {
       setLoading(false)
     }

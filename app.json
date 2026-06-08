@@ -2,7 +2,7 @@
   "expo": {
     "name": "Verze",
     "slug": "Verze",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon1.png",
     "scheme": "verze",
@@ -18,8 +18,9 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/icon1.png",
+        "backgroundColor": "#ffffff",
+        "icon": "./assets/images/icon1.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,

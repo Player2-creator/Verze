@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/metro-config": "~54.0.14",
     "@expo/vector-icons": "^15.0.3",
     "@hcaptcha/react-native-hcaptcha": "^4.0.0",
     "@react-native-async-storage/async-storage": "^1.20.1",

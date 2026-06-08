@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Button, Card } from 'react-native-paper'
 import * as ImagePicker from 'expo-image-picker'
-import { createAnonymousSession, createPost, getAccount, updateAccountName } from '../lib/appwriteClient'
+import { createAnonymousSession, createPost, getAccount, updateAccountName, logout, userExists } from '../lib/appwriteClient'
 import { useRouter } from 'expo-router'
 import { useIsFocused } from '@react-navigation/native'
 
@@ -76,7 +76,13 @@ const Create = () => {
       setAuthorName(auth.name)
 
       try {
-        await getAccount()
+        const exists = await userExists()
+        if (!exists) {
+          await AsyncStorage.removeItem(AUTH_STORAGE_KEY)
+          setAuthChecked(true)
+          router.replace('/Auth')
+          return
+        }
         setAuthorized(true)
       } catch {
         try {
@@ -176,6 +182,4 @@ const Create = () => {
 
 export default Create
 
-const styles = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({})
